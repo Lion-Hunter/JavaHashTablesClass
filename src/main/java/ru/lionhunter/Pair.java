@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Pair {
     public int key;
-    public LinkedList value;
+    public LinkedList<Integer> value;
     public boolean deleted;
     public int first;
     public int second;
