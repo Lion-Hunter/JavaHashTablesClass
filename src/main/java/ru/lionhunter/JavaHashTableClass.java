@@ -1,13 +1,14 @@
 package ru.lionhunter;
 
 import java.util.Scanner;
-import java.util.LinkedList;
+import java.util.stream.IntStream;
 
 public class JavaHashTableClass {
     public Pair[] array;
 
     public JavaHashTableClass(int quantity) {
         array = new Pair[quantity];
+        IntStream.range(0, quantity).forEach(i -> array[i] = new Pair());
     }
 
     public void create() {
@@ -15,34 +16,29 @@ public class JavaHashTableClass {
         JavaHashTableClass arr = new JavaHashTableClass(scan.nextInt());
     }
 
-    public boolean contain(int elem, Pair[] array) {
+    public boolean contain(int elem) {
         for (Pair anArray : array) {
             if (anArray.value.contains(elem)) return true;
         }
+
         return false;
     }
 
-    public static int transform(Element object, Pair[] arr) {
+    public int transform(Element object, Pair[] arr) {
         return Math.abs(object.hashCode()) < arr.length ? Math.abs(object.hashCode()) :
                 Math.abs(object.hashCode()) % arr.length;
     }
 
-    public void add(int num) {
-        Element el = new Element(num);
-        int index = transform(el, array);
-        LinkedList<Integer> list = array[index].value;
-
-        if (!list.contains(num)) {
-            array[index].key++;
-            list.add(num);
+    public void add(int num, Pair[] arr, int index) {
+        if (!arr[index].value.contains(num)) {
+            arr[index].key++;
+            arr[index].value.add(num);
         }
     }
 
-    public void remove(int num) {
-        Element elem = new Element(num);
-        int index = transform(elem, array);
-        array[index].value.remove(new Integer(num));
-        array[index].key--;
+    public void remove(int num, Pair[] arr, int index) {
+        arr[index].value.remove(new Integer(num));
+        arr[index].key--;
     }
 
     public boolean compare(Pair[] first, Pair[] second) {
@@ -55,6 +51,7 @@ public class JavaHashTableClass {
                 if (!second[i].value.contains(sym)) return false;
             }
         }
+
         return true;
     }
 
