@@ -49,6 +49,7 @@ public class JavaHashTableClass {
             size--;
             return true;
         }
+
         return false;
     }
 
